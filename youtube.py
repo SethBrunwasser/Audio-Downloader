@@ -27,5 +27,3 @@ def get_audio(url):
 
 	bestaudio.download()
 
-
-print(query("DNMO Sub Urban - Broken (COFRESI Remix)"))
