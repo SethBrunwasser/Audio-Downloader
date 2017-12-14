@@ -12,7 +12,7 @@ def query(searchString):
 	url = "https://www.youtube.com/results?search_query=" + query
 	response = urlopen(url)
 	html = response.read()
-	soup = BeautifulSoup(html)
+	soup = BeautifulSoup(html, "html.parser")
 
 	urls = {}
 	for vid in soup.findAll(attrs={'class':'yt-uix-tile-link'}):
@@ -25,6 +25,5 @@ def get_audio(url):
 	duration = video.duration
 	title = video.title
 	bestaudio = video.getbestaudio(preftype="m4a")
-
 	bestaudio.download()
 
