@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 def query(searchString):
 	'''
 	Params: searchString - To query youtube
-	Return: List of urls to videos in response to the search query 
+	Return: Dictionary of keys as video titles and values as urls to videos
 	'''
 	query = urllib.parse.quote(searchString)
 	url = "https://www.youtube.com/results?search_query=" + query
@@ -14,11 +14,12 @@ def query(searchString):
 	html = response.read()
 	soup = BeautifulSoup(html)
 
-	urls = []
+	urls = {}
 	for vid in soup.findAll(attrs={'class':'yt-uix-tile-link'}):
-		urls.append('https://www.youtube.com' + vid['href'])
+		urls[vid['title']] = 'https://www.youtube.com' + vid['href']
 	return urls
 
+query('Dillon Francis - Get Low')
 def get_audio(url):
 	video = pafy.new(url)
 	duration = video.duration
